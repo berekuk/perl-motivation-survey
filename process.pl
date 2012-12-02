@@ -40,9 +40,9 @@ sub fetch_data {
 }
 
 sub cleanup_data {
-    my $result = shift;
+    my $entries = shift;
 
-    for (
+    for my $question (
         # these fields can't be quantified
         'List any other possible reasons for your participation:',
         "Anything else you'd like to share on the topic of this survey:",
@@ -56,7 +56,9 @@ sub cleanup_data {
         "Completion Status",
         "Entry Id",
     ) {
-        delete $result->{$_} or die "Column '$_' not found";
+        for my $entry (@$entries) {
+            delete $entry->{$question} or die "Column '$question' not found";
+        }
     }
 }
 
@@ -69,29 +71,32 @@ sub load_data {
     my $columns_line = shift @lines;
     my @columns = split /\t/, $columns_line;
 
-    my $result = {};
+    my $entries = [];
     for my $line (@lines) {
         my @values = split /\t/, $line;
 
+        my $entry = {};
         for my $cid (0 .. $#columns) {
             my $value = $values[$cid];
             $value = 'N/A' if $value eq '';
-            push @{ $result->{$columns[$cid]} }, $value;
+
+            $entry->{$columns[$cid]} = $value;
         }
+        push @$entries, $entry;
     }
 
     # current report doesn't contain any fields that need cleanup
     # but that can change in the future
-    # cleanup_data($result);
+    # cleanup_data($entries);
 
-    return $result;
+    return $entries;
 }
 
 sub print_reason_histogram {
-    my $answers = shift;
+    my ($entries, $reason) = @_;
 
     my %stat = map { $_ => 0 } @motivation_levels;
-    $stat{$_}++ for @$answers;
+    $stat{ $_->{$reason} }++ for @$entries;
 
     $stat{"No answer"} = delete $stat{""} if $stat{""};
 
@@ -99,11 +104,11 @@ sub print_reason_histogram {
 }
 
 sub main {
-    my $result = load_data();
+    my $entries = load_data();
 
     for my $reason (@reasons) {
         say "=== $reason ===";
-        print_reason_histogram($result->{$reason});
+        print_reason_histogram($entries, $reason);
         say '';
     }
 }
