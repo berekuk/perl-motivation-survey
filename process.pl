@@ -103,6 +103,61 @@ sub print_reason_histogram {
     say "$_\t$stat{$_}" for @motivation_levels;
 }
 
+sub slice {
+    my ($entries, $question, $answer) = @_;
+
+    return [
+        grep { $_->{$question} eq $answer } @$entries
+    ];
+}
+
+sub motiweight {
+    my ($level) = @_;
+    if ($level eq 'Weakly motivating') {
+        return 1;
+    }
+    if ($level eq "Motivating") {
+        return 2;
+    }
+    if ($level eq "Strongly motivating") {
+        return 3;
+    }
+    if ($level eq "It discourages me") {
+        return -1;
+    }
+
+    # sanity check
+    unless (grep { $level eq $_ } ("Don't care", "Doesn't apply", "N/A")) {
+        die "Unexpected motivation level '$level'";
+    }
+    return 0;
+}
+
+sub average_motiweight {
+    my ($entries, $reason) = @_;
+
+    my $total = 0;
+    for my $entry (@$entries) {
+        $total += motiweight($entry->{$reason});
+    }
+    return $total / scalar @$entries;
+}
+
+sub compare_slice_reasons {
+    my ($first, $second) = @_;
+
+    for my $reason (@reasons) {
+        my ($x, $y) = map { average_motiweight($_, $reason) } ($first, $second);
+        warn "$reason ($x, $y)";
+        # TODO - use Welch's t test to check whether there's a significant correlation
+        # http://en.wikipedia.org/wiki/Welch%27s_t_test
+        #
+        # Alternatively, we can avoid creating two different slices,
+        # and just check for the correlation between the slice criteria and the motiweigt,
+        # if the slice criteria is somewhat quantifiable and not just boolean.
+    }
+}
+
 sub main {
     my $entries = load_data();
 
@@ -111,6 +166,24 @@ sub main {
         print_reason_histogram($entries, $reason);
         say '';
     }
+
+    my ($newbies, $e13, $e46, $e710, $experienced) = map {
+        slice($entries, 'How long have you been involved in the open source community?' => $_),
+    } (
+        'less than 1 year',
+        '1-3 years',
+        '4-6 years',
+        '7-10 years',
+        'more than 10 years',
+    );
+    push @$newbies, @$e13;
+    push @$newbies, @$e46;
+    push @$experienced, @$e710;
+
+    say "Newbies: ".scalar(@$newbies);
+    say "Experienced: ".scalar(@$experienced);
+
+    compare_slice_reasons($newbies, $experienced);
 }
 
 main unless caller;
