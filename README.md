@@ -21,6 +21,11 @@ I'm going to import it into this repo when the survey will be over, in case my w
 
 By now, it prints the aggregated results to the terminal.
 
+Ideas on different metrics to calculate:
+* how the experience and contribution frequency slices affect the reasons?
+* correlations between different motivations
+* are there reasons that are more important than other reasons for the most people (i.e., "Getting feedback" > "Getting praise" for 90%)?
+
 # HTML/PDF
 
 TBD. I hope `process.pl` will generate them.
