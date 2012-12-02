@@ -2,7 +2,15 @@
 
 See <http://blogs.perl.org/users/vyacheslav_matjukhin/2012/11/open-source-motivation-survey.html> for the original announcement of this survey.
 
-This repo includes:
+# Contents
+
+This repo will include:
 * anonymized results
 * scripts for processing these results
-* (in the future) html/pdf with histograms and other aggregated data
+* html/pdf with histograms and other aggregated data
+
+# Data
+
+The raw, anonymized data can be found here: <http://berekuk.wufoo.eu/reports/perl-motivation-raw-data/>. Use the "export" button to get the tab-separated data for further processing.
+
+I'm going to import it into this repo when the survey will be over, in case my wufoo account won't last.
