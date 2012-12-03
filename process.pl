@@ -6,6 +6,7 @@ use warnings;
 use 5.010;
 
 use LWP::UserAgent;
+use List::Util qw(sum);
 
 my @reasons = (
     'Writing the code the way I want',
@@ -123,7 +124,7 @@ sub motiweight {
         return 3;
     }
     if ($level eq "It discourages me") {
-        return -1;
+        return -3;
     }
 
     # sanity check
@@ -133,39 +134,73 @@ sub motiweight {
     return 0;
 }
 
+sub all_motiweights {
+    my ($entries, $reason) = @_;
+    return map { motiweight($_->{$reason}) } @$entries;
+}
+
 sub average_motiweight {
     my ($entries, $reason) = @_;
 
-    my $total = 0;
-    for my $entry (@$entries) {
-        $total += motiweight($entry->{$reason});
-    }
-    return $total / scalar @$entries;
+    my @motiweights = all_motiweights($entries, $reason);
+    return sum(@motiweights) / scalar(@motiweights);
 }
+
+# run Rscript and get its output
+sub call_r {
+    my ($command) = @_;
+
+    my $result = qx(Rscript -e '$command'); # FIXME - quote $command
+    if ($?) {
+        die "Rscript failed: $?";
+    }
+    return $result;
+}
+
+# get c(...) code for Rscript
+sub r_cstring {
+    my @values = @_;
+    return 'c('.join(',', @values).')';
+}
+
 
 sub compare_slice_reasons {
     my ($first, $second) = @_;
 
+    my $significant_level = 0.1;
+    say "Statistically significant differences (p < $significant_level):";
+
     for my $reason (@reasons) {
-        my ($x, $y) = map { average_motiweight($_, $reason) } ($first, $second);
-        warn "$reason ($x, $y)";
-        # TODO - use Welch's t test to check whether there's a significant correlation
-        # http://en.wikipedia.org/wiki/Welch%27s_t_test
-        #
-        # Alternatively, we can avoid creating two different slices,
-        # and just check for the correlation between the slice criteria and the motiweigt,
-        # if the slice criteria is somewhat quantifiable and not just boolean.
+
+        my ($avg_first, $avg_second) = map {
+            average_motiweight($_, $reason)
+        } ($first, $second);
+
+        my ($c_first, $c_second) = map {
+            r_cstring(all_motiweights($_, $reason))
+        } ($first, $second);
+
+        # Welch's t test - check whether there's a significant difference between answers for two slices
+        # see http://en.wikipedia.org/wiki/Welch%27s_t_test and http://stat.ethz.ch/R-manual/R-patched/library/stats/html/t.test.html for details
+        my $pvalue = call_r("cat(t.test($c_first, $c_second)\$p.value)");
+
+        if ($pvalue < $significant_level) {
+            say "$reason ($avg_first vs $avg_second); p=$pvalue";
+        }
     }
 }
 
-sub main {
-    my $entries = load_data();
-
+sub print_histograms {
+    my ($entries) = @_;
     for my $reason (@reasons) {
         say "=== $reason ===";
         print_reason_histogram($entries, $reason);
         say '';
     }
+}
+
+sub print_slice_comparisons {
+    my ($entries) = @_;
 
     my ($newbies, $e13, $e46, $e710, $experienced) = map {
         slice($entries, 'How long have you been involved in the open source community?' => $_),
@@ -177,13 +212,21 @@ sub main {
         'more than 10 years',
     );
     push @$newbies, @$e13;
-    push @$newbies, @$e46;
-    push @$experienced, @$e710;
+#    push @$newbies, @$e46;
+#    push @$experienced, @$e710;
 
     say "Newbies: ".scalar(@$newbies);
     say "Experienced: ".scalar(@$experienced);
 
+
     compare_slice_reasons($newbies, $experienced);
+}
+
+sub main {
+    my $entries = load_data();
+
+    print_histograms($entries);
+    print_slice_comparisons($entries);
 }
 
 main unless caller;
