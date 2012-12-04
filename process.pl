@@ -115,12 +115,22 @@ sub print_reason_histogram {
 }
 
 sub slice {
-    my ($entries, $question, $answers) = @_;
+    my ($entries, $question, $slice_answers) = @_;
+
+    my %seen_answers;
 
     my $slice = [];
     for my $entry (@$entries) {
-        push @$slice, $entry if grep { $entry->{$question} eq $_ } @$answers;
+        my $answer = $entry->{$question};
+        push @$slice, $entry if grep { $answer eq $_ } @$slice_answers;
+        $seen_answers{$answer}++;
     }
+
+    # sanity check - check that each slice_answer is seen at least once - that's true, afaik
+    for my $slice_answer (@$slice_answers) {
+        die "No answer '$slice_answer' is seen for the question '$question'" unless $seen_answers{$slice_answer};
+    }
+
     return $slice;
 }
 
@@ -179,7 +189,7 @@ sub r_cstring {
 sub compare_slice_reasons {
     my ($first, $second) = @_;
 
-    my $significant_level = 0.1;
+    my $significant_level = 0.05;
     say "Statistically significant differences (p < $significant_level):";
 
     for my $reason (@reasons) {
@@ -211,30 +221,66 @@ sub print_histograms {
     }
 }
 
+sub compare_by_question {
+    my ($entries, $question, $first_set, $second_set) = @_;
+
+    my ($first_slice, $second_slice) = map {
+        slice(
+            $entries,
+            $question => $_
+        );
+    } ($first_set, $second_set);
+
+    say "Comparing the reasons by how people answer the '$question' question";
+    say "First group: [", join('; ', @$first_set), "], total: ", scalar(@$first_slice);
+    say "Second group: [", join('; ', @$second_set), "], total: ", scalar(@$second_slice);
+    compare_slice_reasons($first_slice, $second_slice);
+    say '';
+}
+
 sub print_slice_comparisons {
     my ($entries) = @_;
 
-    my $newbies = slice(
+    compare_by_question(
         $entries,
-        'How long have you been involved in the open source community?' => [
+        'How long have you been involved in the open source community?',
+        [
             'less than 1 year',
             '1-3 years',
-        ]
-    );
-    my $experienced = slice(
-        $entries,
-        'How long have you been involved in the open source community?' => [
-            #'4-6 years',
-            #'7-10 years',
+        ],
+        [
+# ignoring people in the middle to increase the gap and get more statistically significant results
+#            '4-6 years',
+#            '7-10 years',
             'more than 10 years',
         ]
     );
 
-    say "Newbies: ".scalar(@$newbies);
-    say "Experienced: ".scalar(@$experienced);
+    compare_by_question(
+        $entries,
+        'How often do you contribute to the open source, on average? (Coding, reporting bugs, writing blog posts all counts.)',
+        [
+            'Almost daily',
+            'Several times per week',
+        ],
+        [
+#            'Several times per month',
+            'Several times per year',
+            'Even less often',
+        ]
+    );
 
-
-    compare_slice_reasons($newbies, $experienced);
+    compare_by_question(
+        $entries,
+        'Would you like to contribute more?',
+        [
+            'Yes',
+        ],
+        [
+            'No',
+            "I'd like to contribute less",
+        ]
+    );
 }
 
 sub main {

@@ -13,13 +13,13 @@ This repo will include:
 
 The raw, anonymized data can be found here: <http://berekuk.wufoo.eu/reports/perl-motivation-raw-data/>. Use the "export" button to get the tab-separated data for further processing.
 
-I'm going to import it into this repo when the survey will be over, in case my wufoo account won't last.
+Cached copy of the data is stored in this repo, in the `data` file.
 
 # Scripts
 
-`process.pl` fetches the survey data and processes it.
+`process.pl` processes the data and prints the aggregated results to the terminal.
 
-By now, it prints the aggregated results to the terminal.
+It can fetch the latest version of data with `REFETCH=1` option. It'll use `data` file otherwise.
 
 Ideas on different metrics to calculate:
 * how the experience and contribution frequency slices affect the reasons?
