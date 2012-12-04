@@ -5,6 +5,9 @@ use warnings;
 
 use 5.010;
 
+use IPC::System::Simple;
+use autodie qw(:all);
+
 use LWP::UserAgent;
 use List::Util qw(sum);
 
@@ -35,15 +38,16 @@ my @motivation_levels = (
 );
 
 sub fetch_data {
-    if ($ENV{CACHED}) {
-        my $result = qx(cat data);
-        die "failed to load cache: $?" unless $result;
-        return $result;
+    my $data_file = 'data';
+    if ($ENV{REFETCH}) {
+        my $response = LWP::UserAgent->new->get('http://berekuk.wufoo.eu/export/report/perl-motivation-raw-data.txt');
+        die $response->status_line unless $response->is_success;
+        open my $fh, '>', $data_file;
+        print {$fh} $response->content;
+        close $fh;
     }
 
-    my $response = LWP::UserAgent->new->get('http://berekuk.wufoo.eu/export/report/perl-motivation-raw-data.txt');
-    die $response->status_line unless $response->is_success;
-    return $response->content;
+    return qx(cat $data_file);
 }
 
 sub cleanup_data {
