@@ -40,6 +40,8 @@ my @motivation_levels = (
 sub fetch_data {
     my $data_file = 'data';
     if ($ENV{REFETCH}) {
+        # you may notice entry 56 is missing
+        # that's ok, I manually removed it - it was double-posted
         my $response = LWP::UserAgent->new->get('http://berekuk.wufoo.eu/export/report/perl-motivation-raw-data.txt');
         die $response->status_line unless $response->is_success;
         open my $fh, '>', $data_file;
@@ -192,6 +194,7 @@ sub compare_slice_reasons {
     my $significant_level = 0.05;
     say "Statistically significant differences (p < $significant_level):";
 
+    my $total = 0;
     for my $reason (@reasons) {
 
         my ($avg_first, $avg_second) = map {
@@ -207,8 +210,12 @@ sub compare_slice_reasons {
         my $pvalue = call_r("cat(t.test($c_first, $c_second)\$p.value)");
 
         if ($pvalue < $significant_level) {
-            say "$reason ($avg_first vs $avg_second); p=$pvalue";
+            say "* $reason ($avg_first vs $avg_second); p=$pvalue";
+            $total++;
         }
+    }
+    unless ($total) {
+        say "* none";
     }
 }
 
