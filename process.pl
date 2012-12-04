@@ -35,6 +35,12 @@ my @motivation_levels = (
 );
 
 sub fetch_data {
+    if ($ENV{CACHED}) {
+        my $result = qx(cat data);
+        die "failed to load cache: $?" unless $result;
+        return $result;
+    }
+
     my $response = LWP::UserAgent->new->get('http://berekuk.wufoo.eu/export/report/perl-motivation-raw-data.txt');
     die $response->status_line unless $response->is_success;
     return $response->content;
@@ -105,11 +111,13 @@ sub print_reason_histogram {
 }
 
 sub slice {
-    my ($entries, $question, $answer) = @_;
+    my ($entries, $question, $answers) = @_;
 
-    return [
-        grep { $_->{$question} eq $answer } @$entries
-    ];
+    my $slice = [];
+    for my $entry (@$entries) {
+        push @$slice, $entry if grep { $entry->{$question} eq $_ } @$answers;
+    }
+    return $slice;
 }
 
 sub motiweight {
@@ -202,18 +210,21 @@ sub print_histograms {
 sub print_slice_comparisons {
     my ($entries) = @_;
 
-    my ($newbies, $e13, $e46, $e710, $experienced) = map {
-        slice($entries, 'How long have you been involved in the open source community?' => $_),
-    } (
-        'less than 1 year',
-        '1-3 years',
-        '4-6 years',
-        '7-10 years',
-        'more than 10 years',
+    my $newbies = slice(
+        $entries,
+        'How long have you been involved in the open source community?' => [
+            'less than 1 year',
+            '1-3 years',
+        ]
     );
-    push @$newbies, @$e13;
-#    push @$newbies, @$e46;
-#    push @$experienced, @$e710;
+    my $experienced = slice(
+        $entries,
+        'How long have you been involved in the open source community?' => [
+            #'4-6 years',
+            #'7-10 years',
+            'more than 10 years',
+        ]
+    );
 
     say "Newbies: ".scalar(@$newbies);
     say "Experienced: ".scalar(@$experienced);
