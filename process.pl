@@ -10,6 +10,8 @@ use autodie qw(:all);
 
 use LWP::UserAgent;
 use List::Util qw(sum);
+use Term::ANSIColor qw(:constants);
+local $Term::ANSIColor::AUTORESET = 1;
 
 my @reasons = (
     'Writing the code the way I want',
@@ -222,7 +224,7 @@ sub compare_slice_reasons {
 sub print_histograms {
     my ($entries) = @_;
     for my $reason (@reasons) {
-        say "=== $reason ===";
+        say GREEN "=== $reason ===";
         print_reason_histogram($entries, $reason);
         say '';
     }
@@ -238,7 +240,7 @@ sub compare_by_question {
         );
     } ($first_set, $second_set);
 
-    say "Comparing the reasons by how people answer the '$question' question";
+    say GREEN "Comparing the reasons by how people answer the '$question' question";
     say "First group: [", join('; ', @$first_set), "], total: ", scalar(@$first_slice);
     say "Second group: [", join('; ', @$second_set), "], total: ", scalar(@$second_slice);
     compare_slice_reasons($first_slice, $second_slice);
@@ -294,7 +296,7 @@ sub print_correlations {
     my ($entries) = @_;
 
     my $significant_level = 0.3;
-    say "==== Correlations ====";
+    say GREEN "==== Correlations ====";
     for my $i (0 .. $#reasons) {
         for my $j ($i + 1 .. $#reasons) {
             my ($reason1, $reason2) = ($reasons[$i], $reasons[$j]);
@@ -314,7 +316,7 @@ sub print_dominations {
     my ($entries) = @_;
 
     my $significant_level = 5;
-    say "==== Dominations ====";
+    say GREEN "==== Dominations ====";
     say "Displaying the reason pairs where the number of responders for which the first reason is more important than the second";
     say "is at least $significant_level times more than the number of responders for which the second reason is more important";
     say "Legend: [number of resonders with a>b, with a=b, with a<b]";
