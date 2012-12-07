@@ -290,11 +290,31 @@ sub print_slice_comparisons {
     );
 }
 
+sub print_correlations {
+    my ($entries) = @_;
+
+    my $significant_level = 0.3;
+    say "==== Correlations ====";
+    for my $i (0 .. $#reasons) {
+        for my $j ($i + 1 .. $#reasons) {
+            my ($reason1, $reason2) = ($reasons[$i], $reasons[$j]);
+            my ($c1, $c2) = map {
+                r_cstring(all_motiweights($entries, $_))
+            } ($reason1, $reason2);
+
+            my $cor = call_r("cat(cor($c1, $c2))");
+            next unless $cor > $significant_level;
+            say "Correlation($reason1, $reason2): $cor";
+        }
+    }
+}
+
 sub main {
     my $entries = load_data();
 
     print_histograms($entries);
     print_slice_comparisons($entries);
+    print_correlations($entries);
 }
 
 main unless caller;
