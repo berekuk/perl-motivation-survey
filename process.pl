@@ -307,6 +307,43 @@ sub print_correlations {
             say "Correlation($reason1, $reason2): $cor";
         }
     }
+    say '';
+}
+
+sub print_dominations {
+    my ($entries) = @_;
+
+    my $significant_level = 5;
+    say "==== Dominations ====";
+    say "Displaying the reason pairs where the number of responders for which the first reason is more important than the second";
+    say "is at least $significant_level times more than the number of responders for which the second reason is more important";
+    say "Legend: [number of resonders with a>b, with a=b, with a<b]";
+    say '';
+    for my $i (0 .. $#reasons) {
+        for my $j ($i + 1 .. $#reasons) {
+            my ($reason1, $reason2) = ($reasons[$i], $reasons[$j]);
+
+            my ($gt, $lt, $eq) = (0, 0, 0);
+            for my $entry (@$entries) {
+                my ($m1, $m2) = map { motiweight($entry->{$_}) } ($reason1, $reason2);
+                my $cmp = $m1 <=> $m2;
+                $gt++ if $m1 > $m2;
+                $lt++ if $m1 < $m2;
+                $eq++ if $m1 == $m2;
+            }
+
+            if ($gt < $lt) {
+                ($gt, $lt) = ($lt, $gt);
+                ($reason1, $reason2) = ($reason2, $reason1);
+            }
+
+            if (
+                ($gt / $lt) > $significant_level
+            ) {
+                say "[$gt, $eq, $lt] $reason1 > $reason2";
+            }
+        }
+    }
 }
 
 sub main {
@@ -315,6 +352,7 @@ sub main {
     print_histograms($entries);
     print_slice_comparisons($entries);
     print_correlations($entries);
+    print_dominations($entries);
 }
 
 main unless caller;
