@@ -13,6 +13,8 @@ use List::Util qw(sum max);
 use Term::ANSIColor qw(:constants);
 local $Term::ANSIColor::AUTORESET = 1;
 
+use JSON qw(encode_json);
+
 my @reasons = (
     'Writing the code the way I want',
     'Making the world a better place',
@@ -30,14 +32,19 @@ my @reasons = (
 );
 
 my @motivation_levels = (
-    "Don't care",
     "Weakly motivating",
     "Motivating",
     "Strongly motivating",
     "It discourages me",
+    "Don't care",
     "Doesn't apply",
     "N/A",
 );
+
+my $result = {
+    motivation_levels => \@motivation_levels,
+    reasons => \@reasons,
+};
 
 sub fetch_data {
     my $data_file = 'data';
@@ -118,6 +125,8 @@ sub print_reason_histogram {
     my $max_length = max(map { length } @motivation_levels);
     my $max_ascii_width = 20;
 
+    $result->{histogram}{$reason} = \%stat;
+
     for (@motivation_levels) {
         my $key = $_.(' ' x ($max_length - length($_)));
         my $value = $stat{$_}.(' ' x (3 - length($stat{$_})));
@@ -186,11 +195,11 @@ sub average_motiweight {
 sub call_r {
     my ($command) = @_;
 
-    my $result = qx(Rscript -e '$command'); # FIXME - quote $command
+    my $output = qx(Rscript -e '$command'); # FIXME - quote $command
     if ($?) {
         die "Rscript failed: $?";
     }
-    return $result;
+    return $output;
 }
 
 # get c(...) code for Rscript
@@ -358,13 +367,23 @@ sub print_dominations {
     }
 }
 
+sub generate_json {
+    my $json = encode_json($result);
+    open my $fh, '>', 'results.json';
+    print {$fh} $json;
+    close $fh;
+}
+
 sub main {
     my $entries = load_data();
+    $result->{entries} = $entries;
 
     print_histograms($entries);
     print_slice_comparisons($entries);
     print_correlations($entries);
     print_dominations($entries);
+
+    generate_json();
 }
 
 main unless caller;
