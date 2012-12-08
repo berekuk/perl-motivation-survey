@@ -1,119 +1,146 @@
 [32m=== Writing the code the way I want ===[0m
-Don't care           10   |#                   |
 Weakly motivating    23   |##                  |
 Motivating           74   |########            |
 Strongly motivating  65   |#######             |
 It discourages me    2    |                    |
+Don't care           10   |#                   |
 Doesn't apply        8    |                    |
 N/A                  3    |                    |
 
 [32m=== Making the world a better place ===[0m
-Don't care           8    |                    |
 Weakly motivating    23   |##                  |
 Motivating           75   |########            |
 Strongly motivating  74   |########            |
 It discourages me    2    |                    |
+Don't care           8    |                    |
 Doesn't apply        1    |                    |
 N/A                  2    |                    |
 
 [32m=== Moral satisfaction ===[0m
-Don't care           19   |##                  |
 Weakly motivating    24   |##                  |
 Motivating           63   |######              |
 Strongly motivating  72   |#######             |
 It discourages me    1    |                    |
+Don't care           19   |##                  |
 Doesn't apply        5    |                    |
 N/A                  1    |                    |
 
 [32m=== Improving the software I use ===[0m
-Don't care           2    |                    |
 Weakly motivating    11   |#                   |
 Motivating           69   |#######             |
 Strongly motivating  100  |##########          |
 It discourages me    2    |                    |
+Don't care           2    |                    |
 Doesn't apply        1    |                    |
 N/A                  0    |                    |
 
 [32m=== Learning ===[0m
-Don't care           0    |                    |
 Weakly motivating    15   |#                   |
 Motivating           68   |#######             |
 Strongly motivating  100  |##########          |
 It discourages me    1    |                    |
+Don't care           0    |                    |
 Doesn't apply        1    |                    |
 N/A                  0    |                    |
 
 [32m=== Creativity ===[0m
-Don't care           4    |                    |
 Weakly motivating    25   |##                  |
 Motivating           56   |######              |
 Strongly motivating  95   |##########          |
 It discourages me    2    |                    |
+Don't care           4    |                    |
 Doesn't apply        1    |                    |
 N/A                  2    |                    |
 
 [32m=== Socializing ===[0m
-Don't care           26   |##                  |
 Weakly motivating    78   |########            |
 Motivating           56   |######              |
 Strongly motivating  20   |##                  |
 It discourages me    2    |                    |
+Don't care           26   |##                  |
 Doesn't apply        1    |                    |
 N/A                  2    |                    |
 
 [32m=== Collaborating with other people ===[0m
-Don't care           18   |#                   |
 Weakly motivating    57   |######              |
 Motivating           85   |#########           |
 Strongly motivating  21   |##                  |
 It discourages me    2    |                    |
+Don't care           18   |#                   |
 Doesn't apply        0    |                    |
 N/A                  2    |                    |
 
 [32m=== Getting feedback ===[0m
-Don't care           5    |                    |
 Weakly motivating    50   |#####               |
 Motivating           86   |#########           |
 Strongly motivating  42   |####                |
 It discourages me    0    |                    |
+Don't care           5    |                    |
 Doesn't apply        1    |                    |
 N/A                  1    |                    |
 
 [32m=== Getting praise ===[0m
-Don't care           25   |##                  |
 Weakly motivating    50   |#####               |
 Motivating           59   |######              |
 Strongly motivating  44   |####                |
 It discourages me    1    |                    |
+Don't care           25   |##                  |
 Doesn't apply        2    |                    |
 N/A                  4    |                    |
 
 [32m=== Building a career ===[0m
-Don't care           26   |##                  |
 Weakly motivating    37   |####                |
 Motivating           58   |######              |
 Strongly motivating  56   |######              |
 It discourages me    1    |                    |
+Don't care           26   |##                  |
 Doesn't apply        6    |                    |
 N/A                  1    |                    |
 
 [32m=== Making money ===[0m
-Don't care           47   |#####               |
 Weakly motivating    48   |#####               |
 Motivating           39   |####                |
 Strongly motivating  30   |###                 |
 It discourages me    3    |                    |
+Don't care           47   |#####               |
 Doesn't apply        17   |#                   |
 N/A                  1    |                    |
 
 [32m=== Job requirement ===[0m
-Don't care           38   |####                |
 Weakly motivating    39   |####                |
 Motivating           32   |###                 |
 Strongly motivating  19   |##                  |
 It discourages me    2    |                    |
+Don't care           38   |####                |
 Doesn't apply        50   |#####               |
 N/A                  5    |                    |
+
+[32m=== How often do you contribute to the open source, on average? (Coding, reporting bugs, writing blog posts all counts.) ===[0m
+Once a month             1    |                    |
+Several times per week   32   |###                 |
+Almost daily             28   |###                 |
+Even less often          23   |##                  |
+Several times per month  40   |####                |
+Several times per year   61   |######              |
+
+[32m=== Would you like to contribute more? ===[0m
+Yes                          164  |#################   |
+No                           18   |#                   |
+I'd like to contribute less  3    |                    |
+
+[32m=== Given the amount of free time you have now, would you contribute more if the environment was perfectly friendly, perfectly rewarding, and you knew that your actions make a great impact? ===[0m
+Surely    71   |#######             |
+Probably  82   |########            |
+No        30   |###                 |
+N/A       2    |                    |
+
+[32m=== How long have you been involved in the open source community? ===[0m
+4-6 years                              30   |###                 |
+7-10 years                             38   |####                |
+more than 10 years                     70   |#######             |
+1-3 years                              35   |###                 |
+less than 1 year                       2    |                    |
+Don't remember / Don't want to answer  10   |#                   |
 
 [32mComparing the reasons by how people answer the 'How long have you been involved in the open source community?' question[0m
 First group: [less than 1 year; 1-3 years], total: 37
