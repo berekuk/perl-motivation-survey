@@ -250,7 +250,7 @@ sub r_cstring {
 sub compare_slice_reasons {
     my ($first, $second) = @_;
 
-    my $significant_level = 0.05;
+    my $significant_level = 0.1;
     say "Statistically significant differences (p < $significant_level):";
 
     my $total = 0;
@@ -313,10 +313,10 @@ sub print_slice_comparisons {
         [
             'less than 1 year',
             '1-3 years',
+            '4-6 years',
         ],
         [
 # ignoring people in the middle to increase the gap and get more statistically significant results
-#            '4-6 years',
 #            '7-10 years',
             'more than 10 years',
         ]
