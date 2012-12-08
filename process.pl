@@ -254,6 +254,7 @@ sub compare_slice_reasons {
     say "Statistically significant differences (p < $significant_level):";
 
     my $total = 0;
+    my @result;
     for my $reason (@reasons) {
 
         my ($avg_first, $avg_second) = map {
@@ -270,12 +271,17 @@ sub compare_slice_reasons {
 
         if ($pvalue < $significant_level) {
             say "* $reason ($avg_first vs $avg_second); p=$pvalue";
-            $total++;
+            push @result, {
+                reason => $reason,
+                averages => [$avg_first, $avg_second],
+                p => $pvalue,
+            };
         }
     }
-    unless ($total) {
+    unless (@result) {
         say "* none";
     }
+    return @result;
 }
 
 sub print_all_histograms {
@@ -300,7 +306,13 @@ sub compare_by_question {
     say GREEN "Comparing the reasons by how people answer the '$question' question";
     say "First group: [", join('; ', @$first_set), "], total: ", scalar(@$first_slice);
     say "Second group: [", join('; ', @$second_set), "], total: ", scalar(@$second_slice);
-    compare_slice_reasons($first_slice, $second_slice);
+
+    my @compare_result = compare_slice_reasons($first_slice, $second_slice);
+    push @{ $result->{compares} }, {
+        question => $question,
+        sets => [$first_set, $second_set],
+        result => \@compare_result,
+    };
     say '';
 }
 
