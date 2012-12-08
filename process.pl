@@ -10,6 +10,7 @@ use autodie qw(:all);
 
 use LWP::UserAgent;
 use List::Util qw(sum max);
+use List::MoreUtils qw(uniq);
 use Term::ANSIColor qw(:constants);
 local $Term::ANSIColor::AUTORESET = 1;
 
@@ -46,6 +47,9 @@ my $result = {
     reasons => \@reasons,
 };
 
+my $entries;
+my @questions;
+
 sub fetch_data {
     my $data_file = 'data';
     if ($ENV{REFETCH}) {
@@ -70,16 +74,13 @@ sub cleanup_data {
         "Anything else you'd like to share on the topic of this survey:",
         "CPAN ID, if you have one and you're ok with sharing it:",
         # technical fields from wufoo
-        "Last Page Accessed",
-        "Created By",
-        "Updated By",
-        "IP Address",
-        "Last Updated",
-        "Completion Status",
         "Entry Id",
+        "Date Created",
+        "Last Page Accessed",
+        "Completion Status",
     ) {
         for my $entry (@$entries) {
-            delete $entry->{$question} or die "Column '$question' not found";
+            delete $entry->{$question};
         }
     }
 }
@@ -107,27 +108,35 @@ sub load_data {
         push @$entries, $entry;
     }
 
-    # current report doesn't contain any fields that need cleanup
-    # but that can change in the future
-    # cleanup_data($entries);
+    cleanup_data($entries);
+    @questions = grep { defined $entries->[0]{$_} } @columns;
 
     return $entries;
 }
 
-sub print_reason_histogram {
-    my ($entries, $reason) = @_;
+sub print_histogram {
+    my ($entries, $question) = @_;
 
-    my %stat = map { $_ => 0 } @motivation_levels;
-    $stat{ $_->{$reason} }++ for @$entries;
+    my @options;
+    if (grep { $_ eq $question } @reasons) {
+        @options = @motivation_levels;
+    }
+    else {
+        # FIXME - the order of options will be random
+        @options = uniq(map { $_->{$question} } @$entries);
+    }
+
+    my %stat = map { $_ => 0 } @options;
+    $stat{ $_->{$question} }++ for @$entries;
 
     $stat{"No answer"} = delete $stat{""} if $stat{""};
 
-    my $max_length = max(map { length } @motivation_levels);
+    my $max_length = max(map { length } @options);
     my $max_ascii_width = 20;
 
-    $result->{histogram}{$reason} = \%stat;
+    $result->{histogram}{$question} = \%stat;
 
-    for (@motivation_levels) {
+    for (@options) {
         my $key = $_.(' ' x ($max_length - length($_)));
         my $value = $stat{$_}.(' ' x (3 - length($stat{$_})));
         my $ascii = '#' x int($max_ascii_width * $value / scalar @$entries);
@@ -240,11 +249,11 @@ sub compare_slice_reasons {
     }
 }
 
-sub print_histograms {
+sub print_all_histograms {
     my ($entries) = @_;
-    for my $reason (@reasons) {
-        say GREEN "=== $reason ===";
-        print_reason_histogram($entries, $reason);
+    for my $question (@questions) {
+        say GREEN "=== $question ===";
+        print_histogram($entries, $question);
         say '';
     }
 }
@@ -378,7 +387,7 @@ sub main {
     my $entries = load_data();
     $result->{entries} = $entries;
 
-    print_histograms($entries);
+    print_all_histograms($entries);
     print_slice_comparisons($entries);
     print_correlations($entries);
     print_dominations($entries);
