@@ -45,6 +45,38 @@ my @motivation_levels = (
 my $result = {
     motivation_levels => \@motivation_levels,
     reasons => \@reasons,
+    q2a => {
+        (map { $_ => \@motivation_levels } @reasons),
+        'How often do you contribute to the open source, on average? (Coding, reporting bugs, writing blog posts all counts.)' => [
+            'Almost daily',
+            'Several times per week',
+            'Several times per month',
+            'Several times per year',
+            'Even less often',
+            'N/A',
+        ],
+        'Would you like to contribute more?' => [
+            'Yes',
+            'No',
+            "I'd like to contribute less",
+            'N/A',
+        ],
+        'Given the amount of free time you have now, would you contribute more if the environment was perfectly friendly, perfectly rewarding, and you knew that your actions make a great impact?' => [
+            'No',
+            'Probably',
+            'Surely',
+            'N/A',
+        ],
+        'How long have you been involved in the open source community?' => [
+            "Don't remember / Don't want to answer",
+            "less than 1 year",
+            "1-3 years",
+            "4-6 years",
+            "7-10 years",
+            "more than 10 years",
+            'N/A',
+        ],
+    }
 };
 
 my $entries;
@@ -117,17 +149,14 @@ sub load_data {
 sub print_histogram {
     my ($entries, $question) = @_;
 
-    my @options;
-    if (grep { $_ eq $question } @reasons) {
-        @options = @motivation_levels;
-    }
-    else {
-        # FIXME - the order of options will be random
-        @options = uniq(map { $_->{$question} } @$entries);
-    }
+    my @options = @{ $result->{q2a}{$question} };
 
     my %stat = map { $_ => 0 } @options;
-    $stat{ $_->{$question} }++ for @$entries;
+    for my $entry (@$entries) {
+        my $answer = $entry->{$question};
+        die "Unexpected answer '$answer'" unless defined $stat{$answer};
+        $stat{$answer}++;
+    }
 
     $stat{"No answer"} = delete $stat{""} if $stat{""};
 
