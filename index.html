@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script type="text/javascript" src="results.json"></script>
+    <script type="text/javascript" src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'></script>
+    <script type="text/javascript" src="http://documentcloud.github.com/underscore/underscore-min.js"></script>
+</head>
+<body>
+    <script src="http://code.highcharts.com/highcharts.js"></script>
+    <script src="http://code.highcharts.com/modules/exporting.js"></script>
+    <div id="report" style="min-width: 400px; margin: 0 auto"></div>
+    <script type="text/javascript">
+    $(function () {
+        $(document).ready(function() {
+            new Highcharts.Chart({
+                chart: {
+                    renderTo: $('<div style="height: 1800px">').appendTo($('#report'))[0],
+                    type: 'bar'
+                },
+                title: {
+                    text: 'Reasons for participation'
+                },
+                xAxis: {
+                    categories: r.reasons
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: 'Number of participants'
+                    }
+                },
+                legend: {
+                    layout: 'vertical',
+                    align: 'right',
+                    verticalAlign: 'top',
+                    x: -100,
+                    y: 100,
+                    floating: true,
+                    borderWidth: 1,
+                    backgroundColor: '#FFFFFF',
+                    shadow: true
+                },
+                tooltip: {
+                    formatter: function() {
+                        return this.series.name + ': ' + this.y;
+                    }
+                },
+                plotOptions: {
+                    bar: {
+                        dataLabels: {
+                            enabled: true
+                        }
+                    }
+                },
+                series: _.map(_.filter(r.motivation_levels, function(level) { return level != 'N/A' }), function(level) {
+                    return {
+                        name: level,
+                        data: _.map(r.histogram, function(stat) {
+                            return parseInt(stat[level]);
+                        }),
+                        animation: false
+                    };
+                })
+            });
+
+            _.each([
+                "How often do you contribute to the open source, on average? (Coding, reporting bugs, writing blog posts all counts.)",
+                "Would you like to contribute more?",
+                "Given the amount of free time you have now, would you contribute more if the environment was perfectly friendly, perfectly rewarding, and you knew that your actions make a great impact?",
+                "How long have you been involved in the open source community?"
+            ], function(question) {
+                new Highcharts.Chart({
+                    chart: {
+                        renderTo: $('<div>').appendTo($('#report'))[0],
+                        type: 'bar'
+                    },
+                    title: {
+                        text: question
+                    },
+                    xAxis: {
+                        categories: ['blah']
+                    },
+                    yAxis: {
+                        min: 0,
+                        title: {
+                            text: 'Number of participants'
+                        }
+                    },
+                    legend: {
+                        layout: 'vertical',
+                        align: 'right',
+                        verticalAlign: 'top',
+                        x: -100,
+                        y: 100,
+                        floating: true,
+                        borderWidth: 1,
+                        backgroundColor: '#FFFFFF',
+                        shadow: true
+                    },
+                    tooltip: {
+                        formatter: function() {
+                            return this.series.name + ': ' + this.y;
+                        }
+                    },
+                    plotOptions: {
+                        bar: {
+                            dataLabels: {
+                                enabled: true
+                            }
+                        }
+                    },
+                    series: _.map(r.histogram[question], function(n, option) {
+                        return {
+                            name: option,
+                            data: [parseInt(n)],
+                            animation: false
+                        };
+                    })
+                });
+            }
+            );
+        });
+    });
+    </script>
+</body>
+</html>
