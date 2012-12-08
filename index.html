@@ -79,8 +79,8 @@
                 series: _.map(_.filter(r.motivation_levels, function(level) { return level != 'N/A' }), function(level) {
                     return {
                         name: level,
-                        data: _.map(r.histogram, function(stat) {
-                            return parseInt(stat[level]);
+                        data: _.map(r.reasons, function(reason) {
+                            return parseInt(r.histogram[reason][level]);
                         }),
                         animation: false
                     };
