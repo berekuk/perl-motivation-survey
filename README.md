@@ -19,7 +19,7 @@ Cached copy of the data is stored in this repo, in the `data` file.
 
 `process.pl` processes the data and prints the aggregated results to the terminal.
 
-It can fetch the latest version of data with `REFETCH=1` option. It'll use `data` file otherwise.
+It can fetch the latest version of data with `REFETCH=1` option. It'll use the `data` file otherwise.
 
 Ideas on different metrics to calculate:
 * how the experience and contribution frequency slices affect the reasons?
