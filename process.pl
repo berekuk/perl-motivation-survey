@@ -379,7 +379,7 @@ sub print_dominations {
 sub generate_json {
     my $json = encode_json($result);
     open my $fh, '>', 'results.json';
-    print {$fh} $json;
+    print {$fh} "var r = $json;";
     close $fh;
 }
 
