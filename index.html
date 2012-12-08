@@ -9,21 +9,36 @@
     <script src="vendors/bootstrap/js/bootstrap.min.js"></script>
     <script src="vendors/underscore-min.js"></script>
     <title>Perl community motivation survey results</title>
+    <style>
+        h1, h2 {
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
     <script src="http://code.highcharts.com/highcharts.js"></script>
     <script src="http://code.highcharts.com/modules/exporting.js"></script>
     <div class="container">
         <h1 style="text-align: center">Perl community motivation survey — results</h1>
+        <p class="lead">
+            <a href="blogs.perl.org/users/vyacheslav_matjukhin/2012/11/open-source-motivation-survey.html">Perl community motivation survey</a> is over.
+            <br>You can find the form with original questions <a href="http://berekuk.wufoo.eu/forms/perl-community-motivation-survey/">here</a>.
+        </p>
+        <div class="well">
+            <h2>Total participants: 202</h2>
+        </div>
+        <h2>Histograms</h2>
         <div id="report" style="min-width: 400px; margin: 0 auto"></div>
     </div>
 <a href="https://github.com/you"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
     <script type="text/javascript">
     $(function () {
         $(document).ready(function() {
+            var div = $('<div style="height: 1800px">');
+            ($('#report')).append(div);
             new Highcharts.Chart({
                 chart: {
-                    renderTo: $('<div style="height: 1800px">').appendTo($('#report'))[0],
+                    renderTo: div[0],
                     type: 'bar'
                 },
                 title: {
