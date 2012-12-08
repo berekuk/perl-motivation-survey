@@ -29,3 +29,5 @@ Ideas on different metrics to calculate:
 # HTML/PDF
 
 TBD. I hope `process.pl` will generate them.
+
+[![githalytics.com alpha](https://cruel-carlota.pagodabox.com/569c6fee22dbe06156b307a7410368e2 "githalytics.com")](http://githalytics.com/berekuk/perl-motivation-survey)
