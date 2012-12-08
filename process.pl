@@ -14,7 +14,7 @@ use List::MoreUtils qw(uniq);
 use Term::ANSIColor qw(:constants);
 local $Term::ANSIColor::AUTORESET = 1;
 
-use JSON qw(encode_json);
+use JSON;
 
 my @reasons = (
     'Writing the code the way I want',
@@ -418,7 +418,7 @@ sub print_dominations {
 }
 
 sub generate_json {
-    my $json = encode_json($result);
+    my $json = JSON->new->utf8->pretty->encode($result);
     open my $fh, '>', 'results.json';
     print {$fh} "var r = $json;";
     close $fh;
