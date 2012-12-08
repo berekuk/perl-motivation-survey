@@ -9,7 +9,7 @@ use IPC::System::Simple;
 use autodie qw(:all);
 
 use LWP::UserAgent;
-use List::Util qw(sum);
+use List::Util qw(sum max);
 use Term::ANSIColor qw(:constants);
 local $Term::ANSIColor::AUTORESET = 1;
 
@@ -115,7 +115,17 @@ sub print_reason_histogram {
 
     $stat{"No answer"} = delete $stat{""} if $stat{""};
 
-    say "$_\t$stat{$_}" for @motivation_levels;
+    my $max_length = max(map { length } @motivation_levels);
+    my $max_ascii_width = 20;
+
+    for (@motivation_levels) {
+        my $key = $_.(' ' x ($max_length - length($_)));
+        my $value = $stat{$_}.(' ' x (3 - length($stat{$_})));
+        my $ascii = '#' x int($max_ascii_width * $value / scalar @$entries);
+        $ascii .= ' ' x ($max_ascii_width - length $ascii);
+        $ascii = "|$ascii|";
+        say "$key  $value  $ascii";
+    }
 }
 
 sub slice {
