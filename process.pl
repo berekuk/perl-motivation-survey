@@ -413,6 +413,13 @@ sub print_dominations {
                 ($gt / $lt) > $significant_level
             ) {
                 say "[$gt, $eq, $lt] $reason1 > $reason2";
+                push @{$result->{dominations}}, {
+                    gt => $gt,
+                    eq => $eq,
+                    lt => $lt,
+                    left => $reason1,
+                    right => $reason2,
+                };
             }
         }
     }

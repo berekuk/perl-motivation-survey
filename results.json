@@ -4085,6 +4085,169 @@ var r = {
       "Making money",
       "Job requirement"
    ],
+   "dominations" : [
+      {
+         "left" : "Writing the code the way I want",
+         "right" : "Job requirement",
+         "lt" : "24",
+         "gt" : "139",
+         "eq" : "38"
+      },
+      {
+         "left" : "Making the world a better place",
+         "right" : "Socializing",
+         "lt" : "22",
+         "gt" : "118",
+         "eq" : "61"
+      },
+      {
+         "left" : "Making the world a better place",
+         "right" : "Making money",
+         "lt" : "25",
+         "gt" : "128",
+         "eq" : "48"
+      },
+      {
+         "left" : "Making the world a better place",
+         "right" : "Job requirement",
+         "lt" : "25",
+         "gt" : "145",
+         "eq" : "31"
+      },
+      {
+         "left" : "Moral satisfaction",
+         "right" : "Job requirement",
+         "lt" : "23",
+         "gt" : "132",
+         "eq" : "46"
+      },
+      {
+         "left" : "Improving the software I use",
+         "right" : "Socializing",
+         "lt" : "17",
+         "gt" : "143",
+         "eq" : "41"
+      },
+      {
+         "left" : "Improving the software I use",
+         "right" : "Collaborating with other people",
+         "lt" : "15",
+         "gt" : "134",
+         "eq" : "52"
+      },
+      {
+         "left" : "Improving the software I use",
+         "right" : "Getting feedback",
+         "lt" : "19",
+         "gt" : "103",
+         "eq" : "79"
+      },
+      {
+         "left" : "Improving the software I use",
+         "right" : "Getting praise",
+         "lt" : "22",
+         "gt" : "117",
+         "eq" : "62"
+      },
+      {
+         "left" : "Improving the software I use",
+         "right" : "Making money",
+         "lt" : "15",
+         "gt" : "142",
+         "eq" : "44"
+      },
+      {
+         "left" : "Improving the software I use",
+         "right" : "Job requirement",
+         "lt" : "13",
+         "gt" : "161",
+         "eq" : "27"
+      },
+      {
+         "left" : "Learning",
+         "right" : "Socializing",
+         "lt" : "9",
+         "gt" : "145",
+         "eq" : "47"
+      },
+      {
+         "left" : "Learning",
+         "right" : "Collaborating with other people",
+         "lt" : "12",
+         "gt" : "133",
+         "eq" : "56"
+      },
+      {
+         "left" : "Learning",
+         "right" : "Getting feedback",
+         "lt" : "19",
+         "gt" : "100",
+         "eq" : "82"
+      },
+      {
+         "left" : "Learning",
+         "right" : "Making money",
+         "lt" : "13",
+         "gt" : "147",
+         "eq" : "41"
+      },
+      {
+         "left" : "Learning",
+         "right" : "Job requirement",
+         "lt" : "7",
+         "gt" : "163",
+         "eq" : "31"
+      },
+      {
+         "left" : "Creativity",
+         "right" : "Socializing",
+         "lt" : "15",
+         "gt" : "135",
+         "eq" : "51"
+      },
+      {
+         "left" : "Creativity",
+         "right" : "Collaborating with other people",
+         "lt" : "18",
+         "gt" : "126",
+         "eq" : "57"
+      },
+      {
+         "left" : "Creativity",
+         "right" : "Making money",
+         "lt" : "16",
+         "gt" : "140",
+         "eq" : "45"
+      },
+      {
+         "left" : "Creativity",
+         "right" : "Job requirement",
+         "lt" : "12",
+         "gt" : "158",
+         "eq" : "31"
+      },
+      {
+         "left" : "Getting feedback",
+         "right" : "Job requirement",
+         "lt" : "23",
+         "gt" : "141",
+         "eq" : "37"
+      },
+      {
+         "left" : "Building a career",
+         "right" : "Making money",
+         "lt" : "15",
+         "gt" : "93",
+         "eq" : "93"
+      },
+      {
+         "left" : "Building a career",
+         "right" : "Job requirement",
+         "lt" : "13",
+         "gt" : "113",
+         "eq" : "75"
+      }
+   ],
    "q2a" : {
       "Making money" : [
          "Weakly motivating",
