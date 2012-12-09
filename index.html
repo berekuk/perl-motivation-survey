@@ -21,8 +21,8 @@
     <div class="container">
         <h1 style="text-align: center">Perl community motivation survey — results</h1>
         <p class="lead">
-            <a href="http://blogs.perl.org/users/vyacheslav_matjukhin/2012/11/open-source-motivation-survey.html">Perl community motivation survey</a> is over.
-            <br>You can find the form with original questions <a href="http://berekuk.wufoo.eu/forms/perl-community-motivation-survey/">here</a>.
+            <a href="http://berekuk.wufoo.eu/forms/perl-community-motivation-survey/">Perl community motivation survey</a> is over.
+            Here are the results.
         </p>
         <div id="total" class="well">
         </div>
@@ -93,6 +93,15 @@
                         text: 'Number of participants'
                     }
                 },
+                colors: [
+                    'red',
+                    'black',
+                    '#666666',
+                    '#BBBBBB',
+                    '#89A54E',
+                    '#3D96AE',
+                    '#DB843D',
+                ],
                 legend: {
                     layout: 'vertical',
                     align: 'right',
@@ -102,7 +111,8 @@
                     floating: true,
                     borderWidth: 1,
                     backgroundColor: '#FFFFFF',
-                    shadow: true
+                    shadow: true,
+                    reversed: true
                 },
                 tooltip: {
                     formatter: function() {
@@ -116,7 +126,7 @@
                         }
                     }
                 },
-                series: _.map(_.filter(r.motivation_levels, function(level) { return level != 'N/A' }), function(level) {
+                series: _.map(r.motivation_levels, function(level) {
                     return {
                         name: level,
                         data: _.map(r.reasons, function(reason) {

@@ -4262,103 +4262,103 @@ var r = {
    ],
    "q2a" : {
       "Making money" : [
+         "It discourages me",
+         "N/A",
+         "Doesn't apply",
+         "Don't care",
          "Weakly motivating",
          "Motivating",
-         "Strongly motivating",
-         "It discourages me",
-         "Don't care",
-         "Doesn't apply",
-         "N/A"
+         "Strongly motivating"
       ],
       "Building a career" : [
+         "It discourages me",
+         "N/A",
+         "Doesn't apply",
+         "Don't care",
          "Weakly motivating",
          "Motivating",
-         "Strongly motivating",
-         "It discourages me",
-         "Don't care",
-         "Doesn't apply",
-         "N/A"
+         "Strongly motivating"
       ],
       "Moral satisfaction" : [
+         "It discourages me",
+         "N/A",
+         "Doesn't apply",
+         "Don't care",
          "Weakly motivating",
          "Motivating",
-         "Strongly motivating",
-         "It discourages me",
-         "Don't care",
-         "Doesn't apply",
-         "N/A"
+         "Strongly motivating"
       ],
       "Collaborating with other people" : [
+         "It discourages me",
+         "N/A",
+         "Doesn't apply",
+         "Don't care",
          "Weakly motivating",
          "Motivating",
-         "Strongly motivating",
-         "It discourages me",
-         "Don't care",
-         "Doesn't apply",
-         "N/A"
+         "Strongly motivating"
       ],
       "Improving the software I use" : [
+         "It discourages me",
+         "N/A",
+         "Doesn't apply",
+         "Don't care",
          "Weakly motivating",
          "Motivating",
-         "Strongly motivating",
-         "It discourages me",
-         "Don't care",
-         "Doesn't apply",
-         "N/A"
+         "Strongly motivating"
       ],
       "Getting praise" : [
+         "It discourages me",
+         "N/A",
+         "Doesn't apply",
+         "Don't care",
          "Weakly motivating",
          "Motivating",
-         "Strongly motivating",
-         "It discourages me",
-         "Don't care",
-         "Doesn't apply",
-         "N/A"
+         "Strongly motivating"
       ],
       "Making the world a better place" : [
+         "It discourages me",
+         "N/A",
+         "Doesn't apply",
+         "Don't care",
          "Weakly motivating",
          "Motivating",
-         "Strongly motivating",
-         "It discourages me",
-         "Don't care",
-         "Doesn't apply",
-         "N/A"
+         "Strongly motivating"
       ],
       "Creativity" : [
+         "It discourages me",
+         "N/A",
+         "Doesn't apply",
+         "Don't care",
          "Weakly motivating",
          "Motivating",
-         "Strongly motivating",
-         "It discourages me",
-         "Don't care",
-         "Doesn't apply",
-         "N/A"
+         "Strongly motivating"
       ],
       "Getting feedback" : [
+         "It discourages me",
+         "N/A",
+         "Doesn't apply",
+         "Don't care",
          "Weakly motivating",
          "Motivating",
-         "Strongly motivating",
-         "It discourages me",
-         "Don't care",
-         "Doesn't apply",
-         "N/A"
+         "Strongly motivating"
       ],
       "Job requirement" : [
+         "It discourages me",
+         "N/A",
+         "Doesn't apply",
+         "Don't care",
          "Weakly motivating",
          "Motivating",
-         "Strongly motivating",
-         "It discourages me",
-         "Don't care",
-         "Doesn't apply",
-         "N/A"
+         "Strongly motivating"
       ],
       "Socializing" : [
+         "It discourages me",
+         "N/A",
+         "Doesn't apply",
+         "Don't care",
          "Weakly motivating",
          "Motivating",
-         "Strongly motivating",
-         "It discourages me",
-         "Don't care",
-         "Doesn't apply",
-         "N/A"
+         "Strongly motivating"
       ],
       "Would you like to contribute more?" : [
          "Yes",
@@ -4373,13 +4373,13 @@ var r = {
          "N/A"
       ],
       "Learning" : [
+         "It discourages me",
+         "N/A",
+         "Doesn't apply",
+         "Don't care",
          "Weakly motivating",
          "Motivating",
-         "Strongly motivating",
-         "It discourages me",
-         "Don't care",
-         "Doesn't apply",
-         "N/A"
+         "Strongly motivating"
       ],
       "How often do you contribute to the open source, on average? (Coding, reporting bugs, writing blog posts all counts.)" : [
          "Almost daily",
@@ -4399,23 +4399,23 @@ var r = {
          "N/A"
       ],
       "Writing the code the way I want" : [
+         "It discourages me",
+         "N/A",
+         "Doesn't apply",
+         "Don't care",
          "Weakly motivating",
          "Motivating",
-         "Strongly motivating",
-         "It discourages me",
-         "Don't care",
-         "Doesn't apply",
-         "N/A"
+         "Strongly motivating"
       ]
    },
    "motivation_levels" : [
+      "It discourages me",
+      "N/A",
+      "Doesn't apply",
+      "Don't care",
       "Weakly motivating",
       "Motivating",
-      "Strongly motivating",
-      "It discourages me",
-      "Don't care",
-      "Doesn't apply",
-      "N/A"
+      "Strongly motivating"
    ],
    "comments" : [
       "The question about community friendliness is a bit odd. I'd like the community to be less snarky sometimes, but my primary limiting factor to contributions is time and energy, not community obnoxiousness.",

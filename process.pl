@@ -33,13 +33,13 @@ my @reasons = (
 );
 
 my @motivation_levels = (
+    "It discourages me",
+    "N/A",
+    "Doesn't apply",
+    "Don't care",
     "Weakly motivating",
     "Motivating",
     "Strongly motivating",
-    "It discourages me",
-    "Don't care",
-    "Doesn't apply",
-    "N/A",
 );
 
 my $result = {
