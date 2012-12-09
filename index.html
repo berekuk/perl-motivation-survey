@@ -72,6 +72,8 @@
     $(function () {
         $(document).ready(function() {
             $('#total').append('<h2>Total participants: ' + r.entries.length + '</h2>');
+            ($('#report')).append('<h3>Reasons for participation</h3>');
+
             var div = $('<div style="height: 1800px">');
             ($('#report')).append(div);
             new Highcharts.Chart({
@@ -80,7 +82,7 @@
                     type: 'bar'
                 },
                 title: {
-                    text: 'Reasons for participation'
+                    text: null
                 },
                 xAxis: {
                     categories: r.reasons
@@ -131,13 +133,16 @@
                 "Given the amount of free time you have now, would you contribute more if the environment was perfectly friendly, perfectly rewarding, and you knew that your actions make a great impact?",
                 "How long have you been involved in the open source community?"
             ], function(question) {
+                ($('#report')).append('<h3>' + question + '</h3>');
+                var div = $('<div>');
+                ($('#report')).append(div);
                 new Highcharts.Chart({
                     chart: {
-                        renderTo: $('<div>').appendTo($('#report'))[0],
+                        renderTo: div[0],
                         type: 'bar'
                     },
                     title: {
-                        text: question
+                        text: null
                     },
                     xAxis: {
                         categories: ['']
