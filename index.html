@@ -219,9 +219,9 @@
                     <td width="30%">
                         Reason
                     </td>
-                    <% _.each(sets, function(set) { %>
-                    <td width="25%">
-                        <%= set.join('; ') %>
+                    <% _.each(sets, function(set, index) { %>
+                    <td width="30%">
+                        <%= set.join('; ') %> <span class="badge"><%= group_sizes[index] %></span>
                     </td>
                     <% }) %>
                     <td>

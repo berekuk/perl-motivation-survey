@@ -312,6 +312,7 @@ sub compare_by_question {
     push @{ $result->{compares} }, {
         question => $question,
         sets => [$first_set, $second_set],
+        group_sizes => [ map { scalar @$_ } ($first_slice, $second_slice) ],
         result => \@compare_result,
     };
     say '';

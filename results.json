@@ -160,6 +160,10 @@ var r = {
                "more than 10 years"
             ]
          ],
+         "group_sizes" : [
+            71,
+            79
+         ],
          "result" : [
             {
                "averages" : [
@@ -190,6 +194,10 @@ var r = {
                "Several times per year",
                "Even less often"
             ]
+         ],
+         "group_sizes" : [
+            61,
+            92
          ],
          "result" : [
             {
@@ -236,6 +244,10 @@ var r = {
                "No",
                "I'd like to contribute less"
             ]
+         ],
+         "group_sizes" : [
+            179,
+            22
          ],
          "result" : [
             {
