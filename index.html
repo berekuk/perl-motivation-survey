@@ -45,6 +45,14 @@
                 Listed below are the pairs of reasons for which <strong>the number of entries where reason A is more motivating than reason B is at least 5 times more frequent than the opposite</strong>.
             </div>
         </div>
+        <div id="txt" class="row">
+            <div id="other-reasons" class="span6">
+                <h3>Other reasons</h3>
+            </div>
+            <div id="comments" class="span6">
+                <h3>Comments</h3>
+            </div>
+        </div>
         <div>
             <h2>Footnotes</h2>
             <div class="well">
@@ -183,7 +191,18 @@
 
             // dominations
             var dominationsTemplate = _.template($('#template-dominations').text());
+            var dtres = dominationsTemplate({ dominations: r.dominations }); console.log(dtres);
             $('#dominations').append(dominationsTemplate({ dominations: r.dominations }));
+
+            // other reasons, comments
+            var txtTemplate = _.template($('#template-txt').text());
+            _.each(["other-reasons", "comments"], function(type) {
+                console.log("type: " + type);
+                _.each(r[type], function(txt) {
+                    console.log(txt);
+                    $('#' + type).append(txtTemplate({ text: txt }));
+                });
+            });
         });
     });
     </script>
@@ -240,6 +259,9 @@
                 <% }) %>
             </table>
         </div>
+    </script>
+    <script type="text/template" id="template-txt">
+        <div class="well well-small"><%= text %></div>
     </script>
     <script type="text/javascript">
 

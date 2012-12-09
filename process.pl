@@ -425,6 +425,36 @@ sub print_dominations {
     }
 }
 
+sub print_txt {
+    my ($type) = @_;
+    open my $fh, '<', $type;
+    while (my $reason = <$fh>) {
+        chomp $reason;
+        $reason =~ s/\\n/\n/g;
+        say $reason;
+        say "---";
+
+        # so far all links in comments (all 2 of them) have been at the end of line, so we can be greedy
+        $reason =~ s{(http://.*)}{<a href="$1">$1</a>}g;
+
+        # we wrap reasons in <pre>, so this is not necessary
+        $reason =~ s/\n/<br>/g;
+
+        push @{ $result->{$type} }, $reason;
+    }
+    close $fh;
+}
+
+sub print_other_reasons {
+    say GREEN "==== Other reasons for participation ====";
+    print_txt('other-reasons');
+}
+
+sub print_comments {
+    say GREEN "==== Comments ====";
+    print_txt('comments');
+}
+
 sub generate_json {
     my $json = JSON->new->utf8->pretty->encode($result);
     open my $fh, '>', 'results.json';
@@ -440,6 +470,9 @@ sub main {
     print_slice_comparisons($entries);
     print_correlations($entries);
     print_dominations($entries);
+
+    print_other_reasons();
+    print_comments();
 
     generate_json();
 }
