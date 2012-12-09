@@ -1,33 +1,23 @@
 # Perl motivation survey - data, processing scripts and results
 
+HTML report can be found here: <http://berekuk.github.com/perl-motivation-survey/>.
+
 See <http://blogs.perl.org/users/vyacheslav_matjukhin/2012/11/open-source-motivation-survey.html> for the original announcement of this survey.
 
-# Contents
+# Repo contents
 
-This repo will include:
-* anonymized results
-* scripts for processing these results
-* html/pdf with histograms and other aggregated data
+This repo includes:
+* raw, anonymized results in `data` file
+* `process.pl` for processing those results; it generates `results.json` and output them to stdout in human-readable format at the same time
+* cached `results` output of the `process.pl`
+* `index.html` which loads `results.json` and renders them using Bootstrap and Highcharts
+
+`gh-pages` branch is identical to the `master` branch, so you can see the html report here: <http://berekuk.github.com/perl-motivation-survey/>.
 
 # Data
 
-The raw, anonymized data can be found here: <http://berekuk.wufoo.eu/reports/perl-motivation-raw-data/>. Use the "export" button to get the tab-separated data for further processing.
+The raw data is available at the Wufoo website: <http://berekuk.wufoo.eu/reports/perl-motivation-raw-data/>. Note the `Export Data` button.
 
-Cached copy of the data is stored in this repo, in the `data` file.
-
-# Scripts
-
-`process.pl` processes the data and prints the aggregated results to the terminal.
-
-It can fetch the latest version of data with `REFETCH=1` option. It'll use the `data` file otherwise.
-
-Ideas on different metrics to calculate:
-* how the experience and contribution frequency slices affect the reasons?
-* correlations between different motivations
-* are there reasons that are more important than other reasons for the most people (i.e., "Getting feedback" > "Getting praise" for 90%)?
-
-# HTML/PDF
-
-TBD. I hope `process.pl` will generate them.
+You can run `REFETCH=1 ./process.pl` to update the `data` file cache from Wufoo.
 
 [![githalytics.com alpha](https://cruel-carlota.pagodabox.com/569c6fee22dbe06156b307a7410368e2 "githalytics.com")](http://githalytics.com/berekuk/perl-motivation-survey)
