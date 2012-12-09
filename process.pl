@@ -258,7 +258,7 @@ sub compare_slice_reasons {
     for my $reason (@reasons) {
 
         my ($avg_first, $avg_second) = map {
-            average_motiweight($_, $reason)
+            sprintf("%.4f", average_motiweight($_, $reason))
         } ($first, $second);
 
         my ($c_first, $c_second) = map {
@@ -268,13 +268,14 @@ sub compare_slice_reasons {
         # Welch's t test - check whether there's a significant difference between answers for two slices
         # see http://en.wikipedia.org/wiki/Welch%27s_t_test and http://stat.ethz.ch/R-manual/R-patched/library/stats/html/t.test.html for details
         my $pvalue = call_r("cat(t.test($c_first, $c_second)\$p.value)");
+        my $confidence = sprintf "%.4f", 1 - $pvalue;
 
         if ($pvalue < $significant_level) {
-            say "* $reason ($avg_first vs $avg_second); p=$pvalue";
+            say "* $reason ($avg_first vs $avg_second); confidence=$confidence";
             push @result, {
                 reason => $reason,
                 averages => [$avg_first, $avg_second],
-                p => $pvalue,
+                confidence => $confidence,
             };
         }
     }

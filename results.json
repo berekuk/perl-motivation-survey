@@ -162,20 +162,20 @@ var r = {
          ],
          "result" : [
             {
-               "p" : "0.01099532",
                "averages" : [
-                  "2.2112676056338",
-                  "1.75949367088608"
+                  "2.2113",
+                  "1.7595"
                ],
-               "reason" : "Moral satisfaction"
+               "reason" : "Moral satisfaction",
+               "confidence" : "0.9890"
             },
             {
-               "p" : "0.05335107",
                "averages" : [
-                  "1.63380281690141",
-                  "1.31645569620253"
+                  "1.6338",
+                  "1.3165"
                ],
-               "reason" : "Collaborating with other people"
+               "reason" : "Collaborating with other people",
+               "confidence" : "0.9466"
             }
          ]
       },
@@ -193,36 +193,36 @@ var r = {
          ],
          "result" : [
             {
-               "p" : "0.07549807",
                "averages" : [
-                  "2.24590163934426",
-                  "1.97826086956522"
+                  "2.2459",
+                  "1.9783"
                ],
-               "reason" : "Making the world a better place"
+               "reason" : "Making the world a better place",
+               "confidence" : "0.9245"
             },
             {
-               "p" : "0.08544899",
                "averages" : [
-                  "2.31147540983607",
-                  "2.55434782608696"
+                  "2.3115",
+                  "2.5543"
                ],
-               "reason" : "Learning"
+               "reason" : "Learning",
+               "confidence" : "0.9146"
             },
             {
-               "p" : "0.007796384",
                "averages" : [
-                  "1.85245901639344",
-                  "1.41304347826087"
+                  "1.8525",
+                  "1.4130"
                ],
-               "reason" : "Getting praise"
+               "reason" : "Getting praise",
+               "confidence" : "0.9922"
             },
             {
-               "p" : "0.03576609",
                "averages" : [
-                  "1.95081967213115",
-                  "1.56521739130435"
+                  "1.9508",
+                  "1.5652"
                ],
-               "reason" : "Building a career"
+               "reason" : "Building a career",
+               "confidence" : "0.9642"
             }
          ]
       },
@@ -239,12 +239,12 @@ var r = {
          ],
          "result" : [
             {
-               "p" : "0.09934491",
                "averages" : [
-                  "1.75977653631285",
-                  "1.27272727272727"
+                  "1.7598",
+                  "1.2727"
                ],
-               "reason" : "Building a career"
+               "reason" : "Building a career",
+               "confidence" : "0.9007"
             }
          ]
       }
